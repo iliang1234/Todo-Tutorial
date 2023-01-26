@@ -5,21 +5,26 @@
   let todos = [];
   let input = "";
 
+  // Component
   function addTodo() {
-    if (input)
+    if (input) //Properties
       todos = [
         ...todos,
         {
           text: input,
+          // Reactive
           id: Math.random()
             .toString(36)
             .substr(2, 9)
         }
       ];
+    // Reactive
     input = "";
   }
 
-  function removeTodo(id) {
+  // Component
+  function removeTodo(id) { //Properties
+    // Reactive
     const index = todos.findIndex(todo => todo.id === id);
     todos.splice(index, 1);
     todos = todos;
@@ -34,9 +39,10 @@
 <main class="container is-fluid">
   <div class="columns is-centered is-vcentered is-mobile">
     <div class="column is-narrow" style="width: 70%">
-      <h1 class="has-text-centered title">Svelte TODO</h1>
+      <h1 class="has-text-centered title">Todo List</h1>
       <form class="field has-addons" style="justify-content: center" on:submit|preventDefault={addTodo}>
         <div class="control">
+          <!-- Async -->
           <input bind:value={input} class="input" type="text" placeholder="TODO">
         </div>
         <div class="control">
@@ -48,11 +54,14 @@
         </div>
       </form>
       <ul class:list={todos.length > 0}>
-        {#each todos as todo (todo.id)}
+        <!-- controlFlow -->
+        {#each todos as todo (todo.id)} <!-- Properties -->
           <li class="list-item" transition:slide="{{duration: 300, easing: elasticInOut}}">
             <div class="is-flex" style="align-items: center">
+              <!-- Async -->
               <span class="is-pulled-left">{todo.text}</span>
               <div style="flex: 1"></div>
+              <!-- Async -->
               <button class="button is-text is-pulled-right is-small" on:click={()=> removeTodo(todo.id)}>
                 <span class="icon">
                   <i class="fas fa-check"></i>
@@ -60,8 +69,9 @@
               </button>
             </div>
           </li>
+        <!-- controlFlow -->
         {:else}
-          <li class="has-text-centered" transition:slide="{{delay: 600, duration: 300, easing: elasticInOut}}">Nothing here!</li>
+          <li class="has-text-centered" transition:slide="{{delay: 600, duration: 300, easing: elasticInOut}}">Add to your TODO list!</li>
         {/each}
       </ul>
     </div>

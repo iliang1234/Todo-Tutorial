@@ -26,6 +26,7 @@
   function removeTodo(id) { //Properties
     // Reactive
     const index = todos.findIndex(todo => todo.id === id);
+    // Remove item that has been completed and adjust remaining indexes
     todos.splice(index, 1);
     todos = todos;
   }
@@ -36,6 +37,7 @@
   <script src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
 </svelte:head>
 
+<!-- HTML portion -->
 <main class="container is-fluid">
   <div class="columns is-centered is-vcentered is-mobile">
     <div class="column is-narrow" style="width: 70%">
@@ -54,7 +56,7 @@
         </div>
       </form>
       <ul class:list={todos.length > 0}>
-        <!-- controlFlow -->
+        <!-- controlFlow (loop) -->
         {#each todos as todo (todo.id)} <!-- Properties -->
           <li class="list-item" transition:slide="{{duration: 300, easing: elasticInOut}}">
             <div class="is-flex" style="align-items: center">
